@@ -487,7 +487,7 @@ campaignTrail_temp.temp_election_list = [
 
 nct_stuff.themes[nct_stuff.selectedTheme].coloring_title = "#1a275e";
 
-nct_stuff.themes[nct_stuff.selectedTheme].coloring_window = "#f9f06b";
+nct_stuff.themes[nct_stuff.selectedTheme].coloring_window = "#FEA73D";
 
 document.getElementsByClassName("game_header")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_title;
 
@@ -495,10 +495,86 @@ $("#game_window")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selected
 
 $(".container")[0].style.backgroundColor = "#1a275e";
 
-document.getElementById("header").src = "https://cdn.sanity.io/images/scew3mi4/production/36c60f9b7ed557a8d4940c67219a5ac9b57f8668-3057x1458.jpg?w=3840&q=75&fit=clip&auto=format";
+document.getElementById('game_start').innerHTML = '<b>Enter the City That Never Sleeps</b>';
+
+document.getElementsByClassName("game_header")[0].children[0].innerHTML = "https://files.catbox.moe/u2pptm.png";
+
+document.getElementById("header").src = "https://files.catbox.moe/qirhgm.png";
 
 document.body.background = "https://files.catbox.moe/zge9ne.png";
 
 document.head.innerHTML += "<style>#results_container {color:#000000;} .inner_window_w_desc {background-color:#99c1f1!important;}</style>";
+
+corrr=`\n<h2><font color='white';font-style='normal';>Where Worlds Collide</font></h2>`
+
+document.getElementById("inner_window_1").children[0].innerHTML = ``;
+
+document.getElementById("inner_window_1").children[1].innerHTML = `
+    <div style="display: block; left: -42px; position: relative;">
+    <h3 style="left: 16px; position: relative;">Do you have what it takes to win a Mayoral Election?</h3>
+    <br>
+        <ul>
+            <li>
+                Donald Trump is now the President of the United States. 
+            </li>
+            <li>
+                Democracy stands at a precipice.
+            </li>
+            <li>
+                New York City will be the first response to a changing America.
+            </li>
+            <li>
+                The <span style="color: #FEA73D;"><b><u>King of Clubs</u></b></span> is prepared to retake what's rightfully his, making up for the failures of the past.
+            </li>
+            <li>
+                While the <span style="color: #d43636;"><u><b>Ace of Hearts</b></u></span> emerges from the shadows, ready to prove himself to the world. 
+            </li>
+            <li>
+                Good luck.
+            </li>
+        </ul>
+        <br>
+    </div>
+`;
+
+
+const style = document.createElement('style');
+
+
+style.innerHTML += `
+@font-face {
+  font-family: 'LibreBaskerville';
+  src: url('https://files.catbox.moe/oq0s6y.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  font-family: 'LibreBaskerville', serif;
+}
+.game_header h2 {
+  font-size: 3em;
+  line-height: normal;
+  font-style: normal;
+  color: #F8F8F8;
+}
+.campaign_trail_start_emphasis {
+  padding: .8em;
+  background-color: #F8F8F8;
+}
+.inner_window_front ul {
+  list-style-type: none;
+  list-style-position: inside;
+  margin-top: .5em;
+  margin-bottom: 1em;
+}
+#header {
+  width: 1005px;
+  margin-bottom: -9px;
+}
+`;
+
+document.head.appendChild(style);
 
 //#endcode
