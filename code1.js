@@ -526,10 +526,10 @@ document.getElementById("inner_window_1").children[1].innerHTML = `
                 New York City will be the first response to a changing America.
             </li>
             <li>
-                The <span style="color: #FEA73D;"><b><i><u>King of Clubs</u></i></b></span> is prepared to retake what's rightfully his, making up for the failures of the past.
+                The <span style="color: #FEA73D;"><b><i><u>🃞 King of Clubs</u></i></b></span> is prepared to retake what's rightfully his, making up for the failures of the past.
             </li>
             <li>
-                While the <span style="color: #d43636;"><u><i><b>Ace of Hearts</b></i></u></span> emerges from the shadows, ready to prove himself to the world. 
+                While the <span style="color: #d43636;"><u><i><b>🂱 Ace of Hearts</b></i></u></span> emerges from the shadows, ready to prove himself to the world. 
             </li>
             <li>
                 <i>Good luck.</i>
@@ -538,6 +538,16 @@ document.getElementById("inner_window_1").children[1].innerHTML = `
         <br>
     </div>
 `;
+
+document.addEventListener('click', function(event) {
+  const form = document.getElementsByName('election_year')[0];
+  if (form) {
+    const h3 = form.getElementsByTagName('h3')[0];
+    if (h3) {
+      h3.innerHTML = '<span style="color: #F8F8F8;"><b>The Great Game</b></span>';
+    }
+  }
+});
 
 
 const style = document.createElement('style');
@@ -553,7 +563,8 @@ style.innerHTML += `
 }
 
 * {
-  font-family: 'LibreBaskerville', serif;
+    font-family: 'LibreBaskerville', serif;
+    user-select: none;      /* Disable selection */
 }
 .game_header h2 {
   font-size: 3em;
@@ -575,18 +586,196 @@ style.innerHTML += `
   width: 1005px;
   margin-bottom: -9px;
 }
+#MusicPlayer {
+  width: 248px;
+  height: 350px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  bottom: 255px;
+  right: 16px;
+  z-index: 1000;
+  display: list-item;
+  left: -700px;
+  top: -1000px;
+  border-radius: 15px;
+}
+  
+  #PausePlayButton {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    font-size: 30px;
+  }
+  
+  #PausePlayButton:hover {
+    cursor: grab;
+  }
 `;
 
 document.head.appendChild(style);
+ 
 
-document.addEventListener('click', function(event) {
-  const form = document.getElementsByName('election_year')[0];
-  if (form) {
-    const h3 = form.getElementsByTagName('h3')[0];
-    if (h3) {
-      h3.innerHTML = '<span style="color: #F8F8F8;"><b>The Great Game</b></span>';
-    }
+ 
+const MusicPlayer = document.createElement("div");
+MusicPlayer.id = "MusicPlayer";
+
+
+
+const ButtonList = document.createElement("div");
+ButtonList.style.display = "flex";
+ButtonList.style.flexDirection = "initial";
+ButtonList.style.justifyContent = "center";
+ButtonList.style.alignItems = "center";
+ButtonList.style.gap = "0px";
+ButtonList.style.marginTop = "0px";
+
+const audio = document.createElement("audio");
+audio.controls = false;
+ 
+const SongArray = [
+  {
+    title: "Myxomatosis",
+    artist: "Radiohead",
+    art: "https://github.com/torquemeans/2025-NYC-TCT/blob/main/resources/MyxomatosisCoverArt.png?raw=true",
+    src: "https://github.com/torquemeans/2025-NYC-TCT/raw/refs/heads/main/resources/Myxomatosis_Radiohead.mp3",
+    color: "linear-gradient(to bottom, #C94410 45%, #2C1912 98%)"
   }
-});
+];
+ 
+let CurrentSong = SongArray[0];
+audio.src = CurrentSong.src;
+ 
+const PausePlayButton = document.createElement("button");
+PausePlayButton.id = "PausePlayButton";
+PausePlayButton.style.all = "unset";
+PausePlayButton.style.display = "flex";
+PausePlayButton.style.textAlign = "center";
+PausePlayButton.style.verticalAlign = "middle";
+PausePlayButton.style.padding = "6px 6px";
+PausePlayButton.style.minWidth = "30px";
+PausePlayButton.style.height = "30px";
+PausePlayButton.style.border = "none";
+PausePlayButton.style.color = "#ffffff";
+PausePlayButton.style.fontSize = "30px";
+
+MusicPlayer.style.background = CurrentSong.color;
+
+audio.autoplay = true;
+
+PausePlayButton.innerHTML = `<img style="width: 30px; height: 30px;" src="https://github.com/torquemeans/2025-NYC-TCT/blob/main/resources/Pause.png?raw=true">`;
+
+ 
+PausePlayButton.onclick = function() {
+  if (audio.paused) {
+    audio.play();
+    PausePlayButton.innerHTML = `<img style="width: 30px; height: 30px;" src="https://github.com/torquemeans/2025-NYC-TCT/blob/main/resources/Pause.png?raw=true">`;
+  } else {
+    audio.pause();
+    PausePlayButton.innerHTML = `<img style="width: 30px; height: 30px;" src="https://github.com/torquemeans/2025-NYC-TCT/blob/main/resources/Play.png?raw=true">`;
+  }
+};
+
+const SkipButton = document.createElement("button");
+
+SkipButton.id = "SkipButton";
+SkipButton.style.all = "unset";
+SkipButton.style.display = "flex";
+SkipButton.style.textAlign = "center";
+SkipButton.style.verticalAlign = "middle";
+SkipButton.style.padding = "6px 6px";
+SkipButton.style.minWidth = "30px";
+SkipButton.style.height = "30px";
+SkipButton.style.border = "none";
+SkipButton.style.color = "#ffffff";
+SkipButton.style.fontSize = "30px";
+
+SkipButton.innerHTML = `<img style="width: 30px; height: 30px;" src="https://github.com/torquemeans/2025-NYC-TCT/blob/main/resources/Skip.png?raw=true" alt="Skip">`;
+
+const RevertButton = document.createElement("button");
+
+RevertButton.id = "RevertButton";
+RevertButton.style.all = "unset";
+RevertButton.style.display = "flex";
+RevertButton.style.textAlign = "center";
+RevertButton.style.verticalAlign = "middle";
+RevertButton.style.padding = "6px 6px";
+RevertButton.style.minWidth = "30px";
+RevertButton.style.height = "30px";
+RevertButton.style.border = "none";
+RevertButton.style.color = "#ffffff";
+RevertButton.style.fontSize = "30px";
+
+RevertButton.innerHTML = `<img style="width: 30px; height: 30px;" src="https://github.com/torquemeans/2025-NYC-TCT/blob/main/resources/Revert.png?raw=true" alt="Revert">`;
+
+const ShuffleButton = document.createElement("button");
+
+ShuffleButton.id = "ShuffleButton";
+ShuffleButton.style.all = "unset";
+ShuffleButton.style.display = "flex";
+ShuffleButton.style.textAlign = "center";
+ShuffleButton.style.verticalAlign = "middle";
+ShuffleButton.style.padding = "6px 6px";
+ShuffleButton.style.minWidth = "30px";
+ShuffleButton.style.height = "30px";
+ShuffleButton.style.border = "none";
+ShuffleButton.style.color = "#ffffff";
+ShuffleButton.style.fontSize = "30px";
+
+ShuffleButton.innerHTML = `<img style="width: 30px; height: 30px;" src="https://github.com/torquemeans/2025-NYC-TCT/blob/main/resources/Shuffle.png?raw=true" alt="Shuffle">`;
+
+
+const RepeatButton = document.createElement("button");
+
+RepeatButton.id = "RepeatButton";
+RepeatButton.style.all = "unset";
+RepeatButton.style.display = "flex";
+RepeatButton.style.textAlign = "center";
+RepeatButton.style.verticalAlign = "middle";
+RepeatButton.style.padding = "6px 6px";
+RepeatButton.style.minWidth = "30px";
+RepeatButton.style.height = "30px";
+RepeatButton.style.border = "none";
+RepeatButton.style.color = "#ffffff";
+RepeatButton.style.fontSize = "30px";
+
+RepeatButton.innerHTML = `<img style="width: 30px; height: 30px;" src="https://github.com/torquemeans/2025-NYC-TCT/blob/main/resources/Replay.png?raw=true" alt="Replay">`;
+
+
+
+
+
+
+
+
+
+
+
+
+const SongArt = document.createElement("img");
+SongArt.src = CurrentSong.art;
+SongArt.style.width = "auto";
+SongArt.style.height = "246px";
+SongArt.style.marginTop = "0px";
+SongArt.style.left = "0px";
+SongArt.style.position = "relative";
+SongArt.style.borderRadius = "15px";
+ 
+MusicPlayer.appendChild(SongArt);
+MusicPlayer.appendChild(audio);
+
+ButtonList.appendChild(ShuffleButton);
+ButtonList.appendChild(RevertButton);
+ButtonList.appendChild(PausePlayButton);
+ButtonList.appendChild(SkipButton);
+ButtonList.appendChild(RepeatButton);
+
+MusicPlayer.appendChild(ButtonList);
+
+
+document.body.appendChild(MusicPlayer);
+ 
 
 //#endcode
